@@ -3,6 +3,10 @@
     "cy:open": "cypress open"
   },
   "devDependencies": {
-    "cypress": "^13.15.0"
+    "@testing-library/cypress": "^10.0.2",
+    "cypress": "^13.16.0"
+  },
+  "dependencies": {
+    "@cypress/code-coverage": "^3.13.7"
   }
 }

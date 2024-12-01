@@ -1,11 +1,26 @@
 describe('template spec', async () => {
-  await it('passes', () => {
-    cy.visit('https://example.cypress.io')
-    // cy.wait(1000); // Delays for 5 seconds
-    // cy.get('a[href="/cypress-api"]').invoke('attr', 'href').then((href) => {
-    //   cy.log(href); // Logs "/cypress-api"
-    // });
-    cy.get('a[href="/cypress-api"]').click({ multiple: true });
-    
+
+  beforeEach(() => {
+    cy.visit(Cypress.config('baseUrl'))
   })
+
+  it('Open web', () => {
+
+    // Enter a username
+    cy.get('input[name="username"]').type('testuser');
+
+    // Enter a password
+    cy.get('input[name="password"]').type('password123');
+
+    // Assert the values entered
+    cy.get('input[name="username"]').should('have.value', 'testuser');
+    cy.get('input[name="password"]').should('have.value', 'password123');
+
+    cy.get('button[name="save"]').click();
+
+  });
+
+
 })
+
+
