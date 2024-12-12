@@ -4,13 +4,13 @@ pipeline {
   stages {
       stage('Dependencies') {
           steps {
-              sh 'npm i'
-              sh 'npm install lambdatest-cypress-cli'
+              bat 'npm install'
+             //   bat 'npm install lambdatest-cypress-cli'
           }
       }
       stage('e2e Tests') {
           steps {
-              sh 'npm run cypress:lambda'
+              bat 'npx cypress run'
           }
       }
       stage('Deploy') {
