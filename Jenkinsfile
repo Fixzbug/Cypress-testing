@@ -41,25 +41,25 @@ pipeline {
     }
     stages {
 
-      stage('covert') {
+      stage('Check Dependencies') {
+          steps {
+              bat 'npm install'
+            //   bat 'npm install cypress --save-dev'
+            //   bat 'npm install cypress-multi-reporters --save-dev'
+          }
+      }
+
+      stage('Covert value to run case') {
           steps {
               convertpath('jenkinsdata')
           }
       }
 
-    //   stage('Dependencies') {
-    //       steps {
-    //           bat 'npm install'
-    //         //   bat 'npm install cypress --save-dev'
-    //         //   bat 'npm install cypress-multi-reporters --save-dev'
-    //       }
-    //   }
-
       stage('e2e Tests') {
           steps {
-            withEnv(['FORCE_COLOR=0']) {
+            // withEnv(['FORCE_COLOR=0']) {
               bat 'npm run cy:run'
-          }
+        //    }
         }
       }
   }
