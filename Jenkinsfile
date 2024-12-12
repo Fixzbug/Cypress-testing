@@ -53,8 +53,10 @@ pipeline {
       }
       stage('e2e Tests') {
           steps {
+            withEnv(['FORCE_COLOR=0']) {
               bat 'npm run cy:run'
           }
+        }
       }
   }
 }
