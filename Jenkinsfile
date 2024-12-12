@@ -1,4 +1,4 @@
-@NonCPS
+// @NonCPS
 def convertpath(String files) {
     // Load the data file
     def dataFile = load files
