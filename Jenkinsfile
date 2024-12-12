@@ -34,9 +34,12 @@ def convertpath(String files) {
 }
 
 pipeline {
-  agent any
-  tools {nodejs "Node"}
-  stages {
+    agent any
+    tools {nodejs "Node"}
+    options {
+        ansiColor('xterm')
+    }
+    stages {
 
       stage('covert') {
           steps {
@@ -44,13 +47,14 @@ pipeline {
           }
       }
 
-      stage('Dependencies') {
-          steps {
-              bat 'npm install'
-            //   bat 'npm install cypress --save-dev'
-            //   bat 'npm install cypress-multi-reporters --save-dev'
-          }
-      }
+    //   stage('Dependencies') {
+    //       steps {
+    //           bat 'npm install'
+    //         //   bat 'npm install cypress --save-dev'
+    //         //   bat 'npm install cypress-multi-reporters --save-dev'
+    //       }
+    //   }
+
       stage('e2e Tests') {
           steps {
             withEnv(['FORCE_COLOR=0']) {
