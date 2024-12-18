@@ -5,7 +5,13 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'https://example.cypress.io/' // Set your base URL here
-    // supportFile: 'cypress/support/e2e.js',
+    component: {
+      viewportWidth: 500,
+      viewportHeight: 500,
+    },
+    defaultCommandTimeout: 5000,
+    baseUrl: 'http://127.0.0.1:5500/Cypress-testing/index.html', // Set your base URL here
+    viewportWidth: 1536, // Set viewport width for MacBook 16
+    viewportHeight: 960 // Set viewport height for MacBook 16
   },
 });
