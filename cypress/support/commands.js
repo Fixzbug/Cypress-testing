@@ -25,29 +25,38 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
+require('cypress-xpath');
+
 Cypress.Commands.add('clickLink', (label) => {
     cy.get('a').contains(label).click()
 })
 
+
 Cypress.Commands.add('checkToken', (token) => {
-    cy.window().its('localStorage.token').should('eq', token)
+    console.log(token);
+    cy.window().then((window) => {
+        // Set the token in localStorage
+        window.localStorage.setItem('token', token);
+    });
+
+    // Assert the token value in localStorage
+    cy.window().its('localStorage.token').should('eq', token);
 })
 
 Cypress.Commands.add('createUser', (user) => {
-    console.log('Title locator:', "gg");
-    // cy.request({
-    //     method: 'POST',
-    //     url: 'https://www.example.com/tokens',
-    //     body: {
-    //         email: 'admin_username',
-    //         password: 'admin_password',
-    //     },
-    // }).then((resp) => {
-    //     cy.request({
-    //         method: 'POST',
-    //         url: 'https://www.example.com/users',
-    //         headers: { Authorization: 'Bearer ' + resp.body.token },
-    //         body: user,
-    //     })
-    // })
+    cy.request({
+        method: 'POST',
+        url: 'https://www.example.com/tokens',
+        body: {
+            email: 'admin_username',
+            password: 'admin_password',
+        },
+    }).then((resp) => {
+        cy.request({
+            method: 'POST',
+            url: 'https://www.example.com/users',
+            headers: { Authorization: 'Bearer ' + resp.body.token },
+            body: user,
+        })
+    })
 })
