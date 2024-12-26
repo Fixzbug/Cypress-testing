@@ -34,10 +34,10 @@ describe('System login tester', async () => {
   });
 
 
-  // it('TESTCASE:002 - ADV OPEN WEB AND LOGIN', () => {
-  //   feature.get_excel_data('Automate tester');
-  //   login_feature.login('Automate tester', 'test', 'test');
-  // });
+  it('TESTCASE:002 - ADV OPEN WEB AND LOGIN', () => {
+    feature.get_excel_data('Automate tester');
+    login_feature.login('Automate tester', 'test', 'test');
+  });
 
   // it('TESTCASE:003 - API', () => {
   //   // cy.createUser({
