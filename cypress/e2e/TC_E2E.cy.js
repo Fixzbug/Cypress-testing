@@ -39,17 +39,6 @@ describe('System login tester', async () => {
     login_feature.login('Automate tester', 'test', 'test');
   });
 
-  // it('TESTCASE:003 - API', () => {
-  //   // cy.createUser({
-  //   //   id: 123,
-  //   //   name: 'Jane Lane',
-  //   // })
-  // });
-
-  // it('should list all localStorage keys and values', () => {
-  //   const testToken = 'safddasf223d1s3f21as231f32sda';
-  //   cy.checkToken(testToken);
-  // });
 
 })
 

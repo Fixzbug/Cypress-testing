@@ -31,6 +31,83 @@ Cypress.Commands.add('clickLink', (label) => {
     cy.get('a').contains(label).click()
 })
 
+Cypress.Commands.add('login1', (credentials) => {
+    const baseUrl = Cypress.config('baseUrl');
+
+    // console.log(baseUrl);
+    // console.log(credentials);
+
+    cy.request({
+        method: 'POST',
+        url: baseUrl + '/users/login', // baseUrl will automatically include '/users/login'
+        body: {
+            username: credentials.username,
+            email: credentials.email,
+            password: credentials.password,
+        },
+    }).then((response) => {
+        // Assert the response status
+        // console.log(response);
+        
+        expect(response.status).to.eq(200);
+        // console.log(response.body.data.token);
+
+
+        // Optionally store the token for further requests
+        if (response.body.data.token) {
+            Cypress.env('authToken', response.body.data.token);
+        }
+
+        // Optionally, perform actions after login
+        cy.request({
+            method: 'GET',
+            url: baseUrl + '/users/user-profile', // Example endpoint after login
+            headers: { Authorization: `Basic ${Cypress.env('authToken')}` },
+        }).then((response) => {
+            // console.log(response);
+    
+            expect(response.status).to.eq(200);
+            cy.log('Protected resource accessed successfully!');
+        });
+
+        // Log the response for debugging
+        cy.log('Login Successful:', response.body);
+    });
+});
+
+
+Cypress.Commands.add('login2', (credentials) => {
+    const baseUrl = Cypress.config('baseUrl');
+
+    // console.log(baseUrl);
+    // console.log(credentials);
+
+    cy.request({
+        method: 'POST',
+        url: baseUrl + '/users/login', // baseUrl will automatically include '/users/login'
+        body: {
+            username: credentials.username,
+            email: credentials.email,
+            password: credentials.password,
+        },
+    }).then((response) => {
+        // Assert the response status
+        // console.log(response);
+        
+        expect(response.status).to.eq(200);
+        // console.log(response.body.data.token);
+
+
+        // Optionally store the token for further requests
+        if (response.body.data.token) {
+            Cypress.env('authToken', response.body.data.token);
+        }
+
+        // Log the response for debugging
+        cy.log('Login Successful:', response.body);
+    });
+});
+
 
 Cypress.Commands.add('checkToken', (token) => {
     console.log(token);
@@ -43,20 +120,4 @@ Cypress.Commands.add('checkToken', (token) => {
     cy.window().its('localStorage.token').should('eq', token);
 })
 
-Cypress.Commands.add('createUser', (user) => {
-    cy.request({
-        method: 'POST',
-        url: 'https://www.example.com/tokens',
-        body: {
-            email: 'admin_username',
-            password: 'admin_password',
-        },
-    }).then((resp) => {
-        cy.request({
-            method: 'POST',
-            url: 'https://www.example.com/users',
-            headers: { Authorization: 'Bearer ' + resp.body.token },
-            body: user,
-        })
-    })
-})
+
